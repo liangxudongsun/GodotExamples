@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://0yx57hfm7q43"]
+
+[ext_resource type="PackedScene" uid="uid://ituu0tfvhpne" path="res://SubScenes/Monkey_ReverseNormalOutline.tscn" id="1_e7a8l"]
+[ext_resource type="PackedScene" uid="uid://dj36vi4b1khkd" path="res://SubScenes/MonkeySmooth_ReverseNormalOutline.tscn" id="2_3yiyw"]
+[ext_resource type="PackedScene" uid="uid://d0fpiebwu1mwe" path="res://SubScenes/MonkeySmooth_ManualOutline.tscn" id="2_v0x1r"]
+[ext_resource type="PackedScene" uid="uid://hmowggxe3bb6" path="res://Models/Monkey.glb" id="3_1j1km"]
+[ext_resource type="PackedScene" uid="uid://befnkykpyadws" path="res://SubScenes/Monkey_BuiltInStencil.tscn" id="3_h8drx"]
+[ext_resource type="PackedScene" uid="uid://c25m2rforfg8c" path="res://SubScenes/MonkeyCustomStencil.tscn" id="4_bujir"]
+[ext_resource type="Shader" uid="uid://cnk4ntu03jfse" path="res://Shaders/NormalDepthOutline.gdshader" id="5_v0x1r"]
+[ext_resource type="PackedScene" uid="uid://dvhosowb3fx6w" path="res://Models/MonkeySmooth.glb" id="7_1relr"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ho06w"]
+size = Vector2(6, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5ddd"]
+render_priority = 0
+shader = ExtResource("5_v0x1r")
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+shader_parameter/normal_threshold = 5.0
+shader_parameter/depth_threshold = 0.01
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5p4cd"]
+size = Vector2(40, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oq70u"]
+shading_mode = 0
+
+[node name="3DOutlineDemo" type="Node3D" unique_id=955304164]
+
+[node name="Manual" type="Node3D" parent="." unique_id=1463109550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+
+[node name="MonkeySmooth" parent="Manual" unique_id=756986154 instance=ExtResource("2_v0x1r")]
+
+[node name="Label3D" type="Label3D" parent="Manual" unique_id=1858382317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2963166, 0)
+pixel_size = 0.01
+text = "土法/原理"
+
+[node name="ReverseNormal" type="Node3D" parent="." unique_id=893289703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="Monkey" parent="ReverseNormal" unique_id=309136554 instance=ExtResource("1_e7a8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="MonkeySmooth" parent="ReverseNormal" unique_id=458145342 instance=ExtResource("2_3yiyw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Label3D" type="Label3D" parent="ReverseNormal" unique_id=2113784088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2963166, 0)
+pixel_size = 0.01
+text = "反法线"
+
+[node name="StencilBuffer" type="Node3D" parent="." unique_id=1288306576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="BuiltInStencil" parent="StencilBuffer" unique_id=2068731926 instance=ExtResource("3_h8drx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="MonkeyCustomStencil" parent="StencilBuffer" unique_id=2068452561 instance=ExtResource("4_bujir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Label3D" type="Label3D" parent="StencilBuffer" unique_id=159342794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.296, 0)
+pixel_size = 0.01
+text = "StencilBuffer"
+
+[node name="NormalDepthOutline" type="Node3D" parent="." unique_id=217705848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="Monkey" parent="NormalDepthOutline" unique_id=2122973218 instance=ExtResource("3_1j1km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6528112, 0, 0)
+
+[node name="MonkeySmooth" parent="NormalDepthOutline" unique_id=449608827 instance=ExtResource("7_1relr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8787124, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NormalDepthOutline" unique_id=1481312444]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1.1028943)
+mesh = SubResource("PlaneMesh_ho06w")
+surface_material_override/0 = SubResource("ShaderMaterial_x5ddd")
+
+[node name="Label3D" type="Label3D" parent="NormalDepthOutline" unique_id=2056024128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.296, 0)
+pixel_size = 0.01
+text = "深度法线后处理"
+
+[node name="Background" type="MeshInstance3D" parent="." unique_id=1485607979]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -3.0945044)
+mesh = SubResource("PlaneMesh_5p4cd")
+surface_material_override/0 = SubResource("StandardMaterial3D_oq70u")

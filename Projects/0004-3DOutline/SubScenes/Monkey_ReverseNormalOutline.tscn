@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ituu0tfvhpne"]
+
+[ext_resource type="PackedScene" uid="uid://hmowggxe3bb6" path="res://Models/Monkey.glb" id="1_4ede6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmdqx"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_660fk"]
+next_pass = SubResource("StandardMaterial3D_qmdqx")
+
+[node name="Monkey" unique_id=309136554 instance=ExtResource("1_4ede6")]
+
+[node name="Suzanne" parent="." index="0" unique_id=982057823]
+surface_material_override/0 = SubResource("StandardMaterial3D_660fk")
